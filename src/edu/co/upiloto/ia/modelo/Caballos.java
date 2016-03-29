@@ -2,15 +2,19 @@ package edu.co.upiloto.ia.modelo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class Caballos {
 
 	private static boolean isSolution(Estado estado) {
 		for (int i = 0; i < estado.tablero.length; i++) {
 			for (int j = 0; j < estado.tablero.length; j++) {
-				if (estado.tablero[i][j].equals("")) {
+				if (estado.tablero[i][j] == -1) {
 					return false;
 				}
 			}
@@ -26,30 +30,29 @@ public class Caballos {
 		System.out.println("Ingrese el j para el punto inicial");
 		int initJ = scanner.nextInt();
 
-		String[][] tableroInicial = new String[8][8];
+		int[][] tableroInicial = new int[6][6];
 		for (int i = 0; i < tableroInicial.length; i++) {
 			for (int j = 0; j < tableroInicial.length; j++) {
-				tableroInicial[i][j] = "";
+				tableroInicial[i][j] = -1;
 			}
 		}
 		Punto puntoInicial = new Punto(initI, initJ);
-		tableroInicial[initI][initJ]="X";
-		Estado initState = new Estado(tableroInicial, puntoInicial, null, "");
+		tableroInicial[initI][initJ] = 0;
+		Estado initState = new Estado(tableroInicial, puntoInicial);
 
-		List<Estado> activeStates = new ArrayList<Estado>();
-		HashMap<String, Estado> visitedStates = new HashMap<String, Estado>();
+		List<Estado> activeStates = new LinkedList<Estado>();
+		Set<Estado> visitedStates = new HashSet<Estado>();
 		// se a–ade el estado inicial a la lista de estados activos
 		activeStates.add(initState);
 		Estado actualState = initState;
-		//
+
 		while (!isSolution(actualState)) {
 			activeStates.remove(0);
 			List<Estado> childStates = actualState.obtenerHijos();
 			for (Estado child : childStates) {
-				String childKey = child.toString();
-				if (!visitedStates.containsKey(childKey)) {
+				if (!visitedStates.contains(child)) {
+					visitedStates.add(child);
 					activeStates.add(0, child);
-					visitedStates.put(childKey, child);
 				}
 			}
 			// si no hay estados viables no hay solucion
@@ -59,20 +62,10 @@ public class Caballos {
 				System.out.println("No hay Solucion viable");
 				System.exit(0);
 			}
+			// System.out.println(actualState);
 		}
 
 		System.out.println("Solucion encontrada");
-
-		List<Estado> results = new ArrayList<Estado>();
-
-		while (actualState != null) {
-			results.add(actualState);
-			actualState = actualState.padre;
-		}
-
-		for (int i = results.size() - 1; i >= 0; i--) {
-			Estado state = results.get(i);
-			System.out.println("->" + state.toString());
-		}
+		System.out.println(actualState);
 	}
 }
