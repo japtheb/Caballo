@@ -33,6 +33,7 @@ public class Caballos {
 			}
 		}
 		Punto puntoInicial = new Punto(initI, initJ);
+		tableroInicial[initI][initJ]="X";
 		Estado initState = new Estado(tableroInicial, puntoInicial, null, "");
 
 		List<Estado> activeStates = new ArrayList<Estado>();

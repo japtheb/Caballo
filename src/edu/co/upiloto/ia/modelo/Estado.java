@@ -19,27 +19,152 @@ public class Estado {
 
 	public List<Estado> obtenerHijos() {
 		List<Estado> result = new ArrayList<Estado>();
-		if (this.actual.i + 2 < 8 && this.actual.j + 1 < 8) {
-			result.add(mover2izquierda1abajot(this));
+		if (esAlcanzable(new Punto(this.actual.i - 2, this.actual.j + 1))) {
+			result.add(mover2arriba1derecha(this));
 		}
+		if (esAlcanzable(new Punto(this.actual.i - 1, this.actual.j + 2))) {
+			result.add(mover1arriba2derecha(this));
+		}
+		if (esAlcanzable(new Punto(this.actual.i + 1, this.actual.j + 2))) {
+			result.add(mover1abajo2derecha(this));
+		}
+		if (esAlcanzable(new Punto(this.actual.i + 2, this.actual.j + 1))) {
+			result.add(mover2abajo1derecha(this));
+		}
+		if (esAlcanzable(new Punto(this.actual.i + 2, this.actual.j - 1))) {
+			result.add(mover2abajo1izquierda(this));
+		}
+		if (esAlcanzable(new Punto(this.actual.i + 1, this.actual.j - 2))) {
+			result.add(mover1abajo2izquierda(this));
+		}
+		if (esAlcanzable(new Punto(this.actual.i - 1, this.actual.j - 2))) {
+			result.add(mover1arriba2izquierda(this));
 
+		}
+		if (esAlcanzable(new Punto(this.actual.i - 2, this.actual.j - 1))) {
+			result.add(mover2arriba11zquierda(this));
+		}
 		return result;
 	}
 
-	private Estado mover2izquierda1abajot(Estado state) {
+	private Estado mover2arriba1derecha(Estado estado) {
 		String[][] tableroModificado = new String[8][8];
 		for (int i = 0; i < tableroModificado.length; i++) {
 			for (int j = 0; j < tableroModificado.length; j++) {
-				tableroModificado[i][j] = state.tablero[i][j];
+				tableroModificado[i][j] = estado.tablero[i][j];
 			}
-
 		}
-		Punto actualModificado = new Punto(state.actual.i + 2,
-				state.actual.j + 1);
-		tablero[actualModificado.i][actualModificado.j] = "X";
+		Punto actualModificado = new Punto(estado.actual.i - 2,
+				estado.actual.j + 1);
+		tableroModificado[actualModificado.i][actualModificado.j] = "X";
 
-		return new Estado(tableroModificado, actualModificado, state,
-				"mover 2 izquierda 1 abajo");
+		return new Estado(tableroModificado, actualModificado, estado,
+				"mover 2 arriba 1 derecha");
+	}
+
+	private Estado mover1arriba2derecha(Estado estado) {
+		String[][] tableroModificado = new String[8][8];
+		for (int i = 0; i < tableroModificado.length; i++) {
+			for (int j = 0; j < tableroModificado.length; j++) {
+				tableroModificado[i][j] = estado.tablero[i][j];
+			}
+		}
+		Punto actualModificado = new Punto(estado.actual.i - 1,
+				estado.actual.j + 2);
+		tableroModificado[actualModificado.i][actualModificado.j] = "X";
+
+		return new Estado(tableroModificado, actualModificado, estado,
+				"mover 1 arriba 2 derecha");
+	}
+
+	private Estado mover1abajo2derecha(Estado estado) {
+		String[][] tableroModificado = new String[8][8];
+		for (int i = 0; i < tableroModificado.length; i++) {
+			for (int j = 0; j < tableroModificado.length; j++) {
+				tableroModificado[i][j] = estado.tablero[i][j];
+			}
+		}
+		Punto actualModificado = new Punto(estado.actual.i + 1,
+				estado.actual.j + 2);
+		tableroModificado[actualModificado.i][actualModificado.j] = "X";
+
+		return new Estado(tableroModificado, actualModificado, estado,
+				"mover 1 abajo 2 derecha");
+	}
+
+	private Estado mover2abajo1derecha(Estado estado) {
+		String[][] tableroModificado = new String[8][8];
+		for (int i = 0; i < tableroModificado.length; i++) {
+			for (int j = 0; j < tableroModificado.length; j++) {
+				tableroModificado[i][j] = estado.tablero[i][j];
+			}
+		}
+		Punto actualModificado = new Punto(estado.actual.i + 2,
+				estado.actual.j + 1);
+		tableroModificado[actualModificado.i][actualModificado.j] = "X";
+
+		return new Estado(tableroModificado, actualModificado, estado,
+				"mover 2 abajo 1 derecha");
+	}
+
+	private Estado mover2abajo1izquierda(Estado estado) {
+		String[][] tableroModificado = new String[8][8];
+		for (int i = 0; i < tableroModificado.length; i++) {
+			for (int j = 0; j < tableroModificado.length; j++) {
+				tableroModificado[i][j] = estado.tablero[i][j];
+			}
+		}
+		Punto actualModificado = new Punto(estado.actual.i + 2,
+				estado.actual.j - 1);
+		tableroModificado[actualModificado.i][actualModificado.j] = "X";
+
+		return new Estado(tableroModificado, actualModificado, estado,
+				"mover 2 abajo 1 Izquierda");
+	}
+
+	private Estado mover1abajo2izquierda(Estado estado) {
+		String[][] tableroModificado = new String[8][8];
+		for (int i = 0; i < tableroModificado.length; i++) {
+			for (int j = 0; j < tableroModificado.length; j++) {
+				tableroModificado[i][j] = estado.tablero[i][j];
+			}
+		}
+		Punto actualModificado = new Punto(estado.actual.i + 1,
+				estado.actual.j - 2);
+		tableroModificado[actualModificado.i][actualModificado.j] = "X";
+
+		return new Estado(tableroModificado, actualModificado, estado,
+				"mover 1 abajo 2 Izquierda");
+	}
+
+	private Estado mover1arriba2izquierda(Estado estado) {
+		String[][] tableroModificado = new String[8][8];
+		for (int i = 0; i < tableroModificado.length; i++) {
+			for (int j = 0; j < tableroModificado.length; j++) {
+				tableroModificado[i][j] = estado.tablero[i][j];
+			}
+		}
+		Punto actualModificado = new Punto(estado.actual.i - 1,
+				estado.actual.j - 2);
+		tableroModificado[actualModificado.i][actualModificado.j] = "X";
+
+		return new Estado(tableroModificado, actualModificado, estado,
+				"mover 1 arriba 2 Izquierda");
+	}
+
+	private Estado mover2arriba11zquierda(Estado estado) {
+		String[][] tableroModificado = new String[8][8];
+		for (int i = 0; i < tableroModificado.length; i++) {
+			for (int j = 0; j < tableroModificado.length; j++) {
+				tableroModificado[i][j] = estado.tablero[i][j];
+			}
+		}
+		Punto actualModificado = new Punto(estado.actual.i - 2,
+				estado.actual.j - 1);
+		tableroModificado[actualModificado.i][actualModificado.j] = "X";
+
+		return new Estado(tableroModificado, actualModificado, estado,
+				"mover 2 arriba 1 Izquierda");
 	}
 
 	@Override
@@ -54,6 +179,12 @@ public class Estado {
 			}
 		}
 		return result;
+	}
+
+	private boolean esAlcanzable(Punto punto) {
+		return punto.i >= 0 && punto.i < tablero.length && punto.j >= 0
+				&& punto.j < tablero[0].length
+				&& tablero[punto.i][punto.j].equals("");
 	}
 
 }
