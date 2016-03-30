@@ -11,15 +11,10 @@ import java.util.TreeSet;
 
 public class Caballos {
 
+    private static final int SIZE = 8;
+
     private static boolean isSolution(Estado estado) {
-        for (int i = 0; i < estado.tablero.length; i++) {
-            for (int j = 0; j < estado.tablero.length; j++) {
-                if (estado.tablero[i][j] == -1) {
-                    return false;
-                }
-            }
-        }
-        return true;
+        return estado.tablero[estado.actual.i][estado.actual.j] + 1 == SIZE * SIZE;
     }
 
     public static void main(String[] args) {
@@ -30,7 +25,7 @@ public class Caballos {
         System.out.println("Ingrese el j para el punto inicial");
         int initJ = scanner.nextInt();
 
-        int[][] tableroInicial = new int[8][8];
+        int[][] tableroInicial = new int[SIZE][SIZE];
         for (int i = 0; i < tableroInicial.length; i++) {
             for (int j = 0; j < tableroInicial.length; j++) {
                 tableroInicial[i][j] = -1;

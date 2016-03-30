@@ -1,16 +1,65 @@
 package edu.co.upiloto.ia.modelo;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class Estado {
     final int[][] tablero;
     final Punto actual;
+    final int numHijos;
 
     public Estado(int[][] tablero, Punto actual) {
         super();
         this.tablero = tablero;
         this.actual = actual;
+        this.numHijos = numHijos();
+    }
+
+    public int numHijos() {
+        int hijos = 0;
+        Punto punto = new Punto(this.actual.i + 2, this.actual.j + 1);
+        if (esAlcanzable(punto)) {
+            hijos++;
+        }
+
+        punto = new Punto(this.actual.i + 2, this.actual.j - 1);
+        if (esAlcanzable(punto)) {
+            hijos++;
+        }
+
+        punto = new Punto(this.actual.i + 1, this.actual.j + 2);
+        if (esAlcanzable(punto)) {
+            hijos++;
+        }
+
+        punto = new Punto(this.actual.i + 1, this.actual.j - 2);
+        if (esAlcanzable(punto)) {
+            hijos++;
+        }
+
+        punto = new Punto(this.actual.i - 2, this.actual.j + 1);
+        if (esAlcanzable(punto)) {
+            hijos++;
+        }
+
+        punto = new Punto(this.actual.i - 2, this.actual.j - 1);
+        if (esAlcanzable(punto)) {
+            hijos++;
+        }
+
+        punto = new Punto(this.actual.i - 1, this.actual.j + 2);
+        if (esAlcanzable(punto)) {
+            hijos++;
+        }
+
+        punto = new Punto(this.actual.i - 1, this.actual.j - 2);
+        if (esAlcanzable(punto)) {
+            hijos++;
+        }
+
+        return hijos;
     }
 
     public List<Estado> obtenerHijos() {
@@ -55,6 +104,13 @@ public class Estado {
             result.add(mover(this, punto));
         }
 
+        Collections.sort(result, new Comparator<Estado>() {
+            @Override
+            public int compare(Estado o1, Estado o2) {
+                if (o1.numHijos > o2.numHijos) return -1;
+                return 1;
+            }
+        });
         return result;
     }
 
